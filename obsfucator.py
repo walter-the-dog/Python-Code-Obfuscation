@@ -15,12 +15,11 @@ class root(tkinter.Tk):
         tkinter.Label(Content,text="Python File To Deobsfucate:").grid(column=0,row=1)
         DeObsButton = tkinter.Button(Content,text="Select File..",command=self.DeObsHandle)
         DeObsButton.grid(column=1,row=1)
-        self.mainloop()
     def encode(self,file):
         message = open(file).read()
-        message_bytes = message.encode('ascii')
+        message_bytes = message.encode('utf-8')
         base64_bytes = base64.b64encode(message_bytes)
-        base64_message = "import base64;exec(base64.b64decode('"+base64_bytes.decode('ascii')+"'.encode('ascii')).decode('ascii'))"
+        base64_message = "import base64;exec(base64.b64decode('"+base64_bytes.decode('utf-8')+"'.encode('utf-8')).decode('utf-8'))"
         open(file,"w+").write(base64_message)
 
     def decode(self,file):
@@ -31,9 +30,9 @@ class root(tkinter.Tk):
         for x in range(0,35):
             del li[len(li)-1]
         base64_message = ''.join(x for x in li)
-        base64_bytes = base64_message.encode('ascii')
+        base64_bytes = base64_message.encode('utf-8')
         message_bytes = base64.b64decode(base64_bytes)
-        message = message_bytes.decode('ascii')
+        message = message_bytes.decode('utf-8')
         open(file,"w+").write(message)
     def ObsHandle(self):
         selectedPath = filedialog.askopenfilename()
